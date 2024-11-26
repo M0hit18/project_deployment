@@ -1,4 +1,38 @@
-:root{
+/* src/App.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  .home-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  h1 {
+    font-size: 30px;
+  }
+  
+  .auth-links {
+    margin-top: 30px;
+  }
+  
+  .auth-links a {
+    font-size: 18px;
+    color: blue;
+    text-decoration: none;
+  }
+  
+  .auth-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .other-options {
+    margin-top: 20px;
+  }
+  :root{
     --yellow:#fdf004;
 }
 html{
@@ -26,7 +60,7 @@ nav{
     top: 0;
     left: 0;
     z-index: 1000;
-    backdrop-filter:blur(30px);
+    /* backdrop-filter:blur(30px); */
 }
 nav img{
     width: 60px;
@@ -601,3 +635,66 @@ nav ul li a{
     gap: 1px;
 }
 }
+
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Auth container */
+  .auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .auth-container h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Form styling */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .form-group input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .btn-submit {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-submit:hover {
+    background-color: #45a049;
+  }
+  
+  

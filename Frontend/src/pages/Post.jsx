@@ -1,114 +1,74 @@
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "notistack";
-import { api } from "../config";
+import React, { useState } from "react";
+import '../Post.css';
 
-export default function Post() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [file, setFile] = useState("");
-  const [btn,setBtn]=useState(true)
-  const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
+const Post = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    title: '',
+    description: '',
+    file: null
+  });
 
-  const submitData = async (e) => {
-
-    e.preventDefault();
-    setBtn(false)
-    const formData = new FormData();
-
-    formData.append("name", name);
-    formData.append("phoneno", phone);
-    formData.append("email", email);
-    formData.append("title", title);
-    formData.append("description", desc);
-    formData.append("file", file);
-
-      await axios
-      .post(`${api}/item`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
-      })
-      .then(() => {
-        enqueueSnackbar("Item Posted Successfully", { variant: "success" });
-        navigate("/find");
-      })
-      .catch((err) => {
-        console.log(err);
-        enqueueSnackbar("Error", { variant: "error" });
-        setBtn(true);
-        
-      });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData(prev => ({
+      ...prev,
+      file
+    }));
+  };
+
   return (
-    <main id="postItem">
-      <Navbar />
-      <section>
-        <h1 className="lfh1">Post Found Item</h1>
-        <div className="form-container">
-          <h2>Please fill all the required fields</h2>
-          <form className="form" encType="multipart/form-data">
-            <div className="input-container">
-              <label htmlFor="">Name </label>{" "}
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="">Email </label>{" "}
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="">Phone </label>{" "}
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="">Title </label>{" "}
-              <input
-                type="Text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-            <div className="input-container">
-              <label htmlFor="">Description </label>{" "}
-              <textarea onChange={(e) => setDesc(e.target.value)} value={desc}>
-                {desc}
-              </textarea>
-            </div>
-            <div className="input-container">
-              <input
-                type="file"
-                accept="images/*"
-                onChange={(e) => setFile(e.target.files[0])}
-                name="file"
-              />
-            </div>
-            <div className="input-container">
-            {btn?
-              (<button type="submit" className="submitbtn" onClick={submitData}>
-                Post
-              </button>) : (<button className="submitbtn">
-                Posting...
-              </button>)}
-            </div>
-          </form>
+    <div className="post-container">
+      <h1 className="post-title">Post Found Item</h1>
+      <form className="post-form">
+        <p className="post-description">Please fill all the required fields</p>
+        
+        <div className="input-group">
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
         </div>
-      </section>
-    </main>
+        
+        <div className="input-group">
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+        </div>
+        
+        <div className="input-group">
+          <label htmlFor="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required />
+        </div>
+        
+        <div className="input-group">
+          <label htmlFor="title">Title</label>
+          <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} required />
+        </div>
+        
+        <div className="input-group">
+          <label htmlFor="description">Description</label>
+          <textarea id="description" name="description" value={formData.description} onChange={handleChange} required />
+        </div>
+        
+        <div className="input-group">
+          <label htmlFor="file">Upload Image</label>
+          <input type="file" id="file" name="file" onChange={handleFileChange} />
+        </div>
+
+        <button type="submit" className="submit-btn">Post</button>
+      </form>
+    </div>
   );
-}
+};
+
+export default Post;
+
+
